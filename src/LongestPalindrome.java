@@ -7,7 +7,7 @@
  */
 public class LongestPalindrome {
     public static String longestPalindrome(String s) {
-
+        return null;
     }
 
     public static String helper(String s, int start, int end) {

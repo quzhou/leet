@@ -9,44 +9,22 @@ import java.util.Arrays;
  * For "bbbbb" the longest substring is "b", with the length of 1.
  */
 public class LongestSubstring {
+    // O(n)
     public static int lengthOfLongestSubstring(String s) {
         int max = 0;
+        int[] lastIdx = new int[256];
+        for (int i = 0; i < 256; i++) {
+            lastIdx[i] = -1;
+        }
+        int startIdx = 0;
         for (int i = 0; i < s.length(); i++) {
-            boolean[] set = new boolean[256];
-            int j;
-            for (j = i; j < s.length(); j++) {
-                if (set[s.charAt(j)]) {
-                    break;
-                } else {
-                    set[s.charAt(j)] = true;
-                }
+            if (lastIdx[s.charAt(i)] > 0 && startIdx <= lastIdx[s.charAt(i)]) {
+                startIdx = lastIdx[s.charAt(i)] + 1;
             }
-            if (j - i > max) {
-                max = j - i;
-            }
+            lastIdx[s.charAt(i)] = i;
+            max = Math.max(max, i - startIdx + 1);
         }
         return max;
-    }
-
-    // O(N)
-    public static int lengthOfLongestSubstring2(String s) {
-        int maxLen = 0, endLen = 0, startIdx = 0, lastIdx;
-        int[] set = new int[256];
-        Arrays.fill(set, -1);
-        for (int i = 0; i < s.length(); i++) {
-            lastIdx = set[s.charAt(i)];
-            if (lastIdx == -1) {
-                set[s.charAt(i)] = i;
-            } else {
-                startIdx = lastIdx + 1;
-                set[s.charAt(i)] = i;
-            }
-            endLen = i - startIdx + 1;
-            if (endLen > maxLen) {
-                maxLen = endLen;
-            }
-        }
-        return maxLen;
     }
 
     public static void main(String[] args) {
@@ -55,8 +33,8 @@ public class LongestSubstring {
         String str3 = "vqblqcb"; //4
         String str4 = "abba"; //2
         String str5 = "bbb"; //1
-        System.out.println(lengthOfLongestSubstring2(str4));
-        //System.out.println(lengthOfLongestSubstring2(str2));
-        //System.out.println(lengthOfLongestSubstring2(str3));
+        System.out.println(lengthOfLongestSubstring(str4));
+        //System.out.println(lengthOfLongestSubstring(str2));
+        //System.out.println(lengthOfLongestSubstring(str3));
     }
 }
