@@ -1,10 +1,15 @@
 /**
  * Created by qzhou on 9/20/16.
  */
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        LongestIncreaseSubsequence instance = new LongestIncreaseSubsequence();
-        int[] arr = new int[] {10,9,2,5,3,7,101,18};
-        System.out.println(instance.lengthOfLIS(arr));
+        Serialize instance = new Serialize();
+        //String str = "0 2 4 1 # 3 7 5 11 # 6 # 8 # # # # # # # #";
+        String str = "5 14 # 1 # # #";
+        TreeNode tree= instance.deserialize2(str);
+        boolean check = new ValidateBST().isValidBST(tree);
+        System.out.println(check);
     }
 }

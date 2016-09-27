@@ -10,8 +10,7 @@
  Determine the maximum amount of money the thief can rob tonight without alerting the police.
  */
 public class HouseRobber3 {
-//    public int rob(TreeNode root) {
-//
-//
-//    }
+    public int rob(TreeNode root) {
+        return 0;
+    }
 }
