@@ -9,7 +9,8 @@ public class Main {
         //String str = "0 2 4 1 # 3 7 5 11 # 6 # 8 # # # # # # # #";
         String str = "5 14 # 1 # # #";
         TreeNode tree= instance.deserialize2(str);
-        boolean check = new ValidateBST().isValidBST(tree);
-        System.out.println(check);
+
+        RomanInt ins = new RomanInt();
+        System.out.println(ins.intToRoman(1000));
     }
 }
