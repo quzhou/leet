@@ -25,12 +25,11 @@ public class InorderTraversal {
         while (!s.empty()) {
             cur = s.pop();
             nodes.add(cur.val);
-            if (cur.right != null) {
-                cur = cur.right;
-                while (cur != null) {
-                    s.push(cur);
-                    cur = cur.left;
-                }
+
+            cur = cur.right;
+            while (cur != null) {
+                s.push(cur);
+                cur = cur.left;
             }
         }
         return nodes;
