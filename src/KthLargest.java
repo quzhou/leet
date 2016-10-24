@@ -27,7 +27,7 @@ public class KthLargest {
 
     int partition(int[] nums, int l, int r) {
         int low = l, high = r;
-        int pivot = nums[low];
+        int pivot = nums[l];
         while (low < high) {
             while (low < high && nums[high] >= pivot) {
                 high--;

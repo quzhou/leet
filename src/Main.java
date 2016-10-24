@@ -10,9 +10,8 @@ public class Main {
         String str = "5 14 # 1 # # #";
         TreeNode tree= instance.deserialize2(str);
 
-        int[] nums1 = new int[] {1, 3, 7, 17, 23};
-        int[] nums2 = new int[] {2, 4, 6, 15, 16, 77};
-        TwoSortedMedian ins = new TwoSortedMedian();
-        System.out.println(ins.findMedianSortedArrays(nums1, nums2));
+        Permutation ins = new Permutation();
+        int[] nums = new int[] {1};
+        System.out.println(ins.permute(nums));
     }
 }

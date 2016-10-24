@@ -9,6 +9,9 @@
  *
  * StringBuilder vs StringBuffer(synchronized)
  */
+import java.util.List;
+import java.util.ArrayList;
+
 public class AddBinary {
     public static String add(String a, String b) {
         char[] ca = a.toCharArray();
@@ -48,6 +51,30 @@ public class AddBinary {
         } else {
             return 0;
         }
+    }
+
+    // For testing other problems
+    public String countAndSay(int n) {
+        String cur = "1", next;
+        for (int i = 1; i < n; i++) {
+            next = "";
+            char digit = 0;
+            int count = 0;
+            for (int j = 0; j < cur.length(); j++) {
+                if (cur.charAt(j) != digit) {
+                    if (count != 0) {
+                        next += count + "" + digit;
+                    }
+                    count = 1;
+                    digit = cur.charAt(j);
+                } else {
+                    count++;
+                }
+            }
+            next += count + "" + digit;
+            cur = next;
+        }
+        return cur;
     }
 
     public static void main(String[] args) {
