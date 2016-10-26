@@ -17,35 +17,44 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
 
 public class KSortedArray {
+    class Element {
+        public int row;
+        public ListNode node;
+        public Element(int row, ListNode node) {
+            this.row = row;
+            this.node = node;
+        }
+    }
+
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) return null;
         ListNode dummy = new ListNode(0);
         ListNode cur = dummy;
 
-        Comparator<ListNode> nodeComparator = new Comparator<ListNode>() {
-            public int compare(ListNode left, ListNode right) {
-                return (left.val - right.val);
+        Comparator<Element> nodeComparator = new Comparator<Element>() {
+            public int compare(Element left, Element right) {
+                return (left.node.val - right.node.val);
             }
         };
-        PriorityQueue<ListNode> heap = new PriorityQueue<ListNode>(lists.length, nodeComparator);
+        PriorityQueue<Element> heap = new PriorityQueue<Element>(lists.length, nodeComparator);
+
         for (int i = 0; i < lists.length; i++) {
             if (lists[i] != null) {
-                heap.add(lists[i]);
+                Element elem = new Element(i, lists[i]);
+                heap.add(elem);
                 lists[i] = lists[i].next;
             }
         }
 
-        int idx = 0;
         while (!heap.isEmpty()) {
-            cur.next = heap.remove();
+            Element elem = heap.remove();
+            cur.next = elem.node;
             cur = cur.next;
 
-            while (idx < lists.length && lists[idx] == null) {
-                idx++;
-            }
-            if (idx < lists.length) {
-                heap.add(lists[idx]);
-                lists[idx] = lists[idx].next;
+            if (lists[elem.row] != null) {
+                Element nextElem = new Element(elem.row, lists[elem.row]);
+                heap.add(nextElem);
+                lists[elem.row] = lists[elem.row].next;
             }
         }
         return dummy.next;
