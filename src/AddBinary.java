@@ -11,6 +11,7 @@
  */
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class AddBinary {
     public static String add(String a, String b) {
@@ -75,6 +76,46 @@ public class AddBinary {
             cur = next;
         }
         return cur;
+    }
+
+    public List<List<Integer>> binaryTreePathSum(TreeNode root, int target) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        if (root == null) {
+            return result;
+        }
+
+        if (root.left == null && root.right == null) {
+            if (root.val == target) {
+                List<Integer> path = new ArrayList<Integer>();
+                path.add(target);
+                result.add(path);
+            }
+        } else if (root.left != null && root.right != null) {
+            List<List<Integer>> leftResult =
+                    binaryTreePathSum(root.left, target - root.val);
+            List<List<Integer>> rightResult =
+                    binaryTreePathSum(root.right, target - root.val);
+
+            for (List<Integer> list : leftResult) {
+                list.add(0, root.val);
+                result.add(list);
+            }
+            for (List<Integer> list : rightResult) {
+                list.add(0, root.val);
+                result.add(list);
+            }
+        } else {
+            TreeNode child = (root.left != null) ? root.left : root.right;
+            List<List<Integer>> subResult =
+                    binaryTreePathSum(child, target - root.val);
+
+            for (List<Integer> list : subResult) {
+                list.add(0, root.val);
+                result.add(list);
+            }
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {

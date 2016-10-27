@@ -1,22 +1,26 @@
 /**
  * Created by qzhou on 9/20/16.
  */
-import java.util.List;
-import java.util.Date;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
         Serialize instance = new Serialize();
-        //String str = "0 2 4 1 # 3 7 5 11 # 6 # 8 # # # # # # # #";
-        String str = "5 14 # 1 # # #";
-        TreeNode tree= instance.deserialize2(str);
+        //String str = "37 -34 -48 # -100 -100 48 # # # # -54 # -71 -22 # # # 8 # #";
+        String str = "2 1 # # #";
+        TreeNode root = instance.deserialize2(str);
 
-        Permutation ins = new Permutation();
-        int[] nums = new int[] {1, 2, 3};
-        System.out.println(ins.permute(nums));
+        Random rand = new Random();
+        int randNum = rand.nextInt(100);
 
-        Date date = new Date();
-        long ts = date.getTime();
-        System.out.println(ts);
+//        int val = (2 << 30) - 1;
+//        System.out.println(val);
+//        System.out.println(Integer.MAX_VALUE);
+
+        BSTIterator ins = new BSTIterator(root);
+        while (ins.hasNext()) {
+            TreeNode cur = ins.next();
+            System.out.println(cur.val);
+        }
     }
 }

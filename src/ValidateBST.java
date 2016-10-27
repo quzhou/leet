@@ -10,10 +10,76 @@
  The right subtree of a node contains only nodes with keys greater than the node's key.
  Both the left and right subtrees must also be binary search trees.
  */
-public class ValidateBST {
-    // or you can use inorder traversal
+public class ValidateBST { //or using in order traversal
+    private static class ReturnType {
+        public boolean valid;
+        public int max;
+        public int min;
+        public ReturnType(boolean valid, int min, int max) {
+            this.valid = valid;
+            this.min = min;
+            this.max = max;
+        }
+    }
 
     public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return helper(root).valid;
+    }
+
+    private ReturnType helper(TreeNode root) {
+        ReturnType ret = new ReturnType(false, 0, 0);
+
+        if (root.left == null && root.right == null) {
+            ret.valid = true;
+            ret.min = root.val;
+            ret.max = root.val;
+            return ret;
+        }
+
+        int min = root.val, max = root.val;
+        ReturnType left = null, right = null;
+
+        if (root.left != null) {
+            left = helper(root.left);
+            if (!left.valid) {
+                ret.valid = false;
+                return ret;
+            } else {
+                if (left.max >= root.val) {
+                    ret.valid = false;
+                    return ret;
+                }
+                min = Math.min(min, left.min);
+                max = Math.max(max, left.max);
+            }
+        }
+
+        if (root.right != null) {
+            right = helper(root.right);
+            if (!right.valid) {
+                ret.valid = false;
+                return ret;
+            } else {
+                if (root.val >= right.min) {
+                    ret.valid = false;
+                    return ret;
+                }
+                min = Math.min(min, right.min);
+                max = Math.max(max, right.max);
+            }
+        }
+
+        ret.min = min;
+        ret.max = max;
+        ret.valid = true;
+
+        return ret;
+    }
+
+    public boolean isValidBST2(TreeNode root) {
         if (root == null) return true;
         int[] min = new int[1];
         int[] max = new int[1];
