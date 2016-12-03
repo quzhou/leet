@@ -192,70 +192,9 @@ public class AddBinary {
         }
     }
 
-    // for fun
-    public void sortColors2(int[] colors, int k) {
-        if (colors == null || colors.length == 0 || k < 1) {
-            return;
-        }
+    // Math for fun
 
-        int start = 0, end = colors.length - 1;
-        for (int i = 1; i <= k; i++) {
-            start = partition(colors, i, start, end);
-        }
-    }
-
-    private int partition(int[] colors, int color, int start, int end) {
-        if (start + 1 > end) {
-            return start + 1;
-        }
-
-        int i = start, j = end, temp;
-        while (i <= j) {
-            while (i <= end && colors[i] == color) {
-                i++;
-            }
-            while (j >= start && colors[j] > color) {
-                j--;
-            }
-            if (i <= j) {
-                temp = colors[i];
-                colors[i] = colors[j];
-                colors[j] = temp;
-                i++;
-                j--;
-            }
-        }
-        return i;
-    }
-
-    public void sortColors(int[] a) {
-        if (a == null || a.length <= 1) {
-            return;
-        }
-
-        int pl = 0;
-        int pr = a.length - 1;
-        int i = 0;
-        while (i <= pr) {
-            if (a[i] == 0) {
-                swap(a, pl, i);
-                pl++;
-                i++;
-            } else if(a[i] == 1) {
-                i++;
-            } else {
-                swap(a, pr, i);
-                pr--;
-            }
-        }
-    }
-
-    private void swap(int[] a, int i, int j) {
-        int tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
-    }
-
+    // http://www.lintcode.com/en/problem/divide-two-integers/
     public int divide(int dividend, int divisor) {
         if (divisor == 0) {
             return (dividend > 0) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
@@ -283,6 +222,43 @@ public class AddBinary {
         }
 
         return neg? -result : result;
+    }
+
+    // https://leetcode.com/problems/nth-digit/
+    public int findNthDigit(int n) {
+        long num = 1;
+        long leap = 9;
+        long count = 0;
+        long base = 1;
+
+        while (true) {
+            long a = n - count;
+            long temp = num * leap;
+            if (a <= temp) {
+                long div = (a - 1) / num;
+                long rem = (a - 1) % num;
+                long found = base + div;
+                long one = 0;
+
+                long index = num - rem;
+                long cnt = 0;
+                while (found > 0) {
+                    cnt++;
+                    one = found % 10;
+                    if (cnt == index) {
+                        break;
+                    }
+                    found /= 10;
+                }
+
+                return (int)one;
+            } else {
+                count += temp;
+                num++;
+                leap *= 10;
+                base *= 10;
+            }
+        }
     }
 
     public static void main(String[] args) {

@@ -35,4 +35,89 @@ public class Permutation {
             }
         }
     }
+
+    // https://leetcode.com/problems/binary-watch/
+    public List<String> readBinaryWatch(int num) {
+        List<String> result = new ArrayList<String>();
+        if (num == 0) {
+            result.add("0:00");
+            return result;
+        }
+
+        ArrayList<Integer> path = new ArrayList<Integer>();
+        helper(num, 0, path, result);
+        return result;
+    }
+
+    private void helper(int num, int pos, ArrayList<Integer> path, List<String> result) {
+        if (path.size() == num) {
+            String ans = myGetTime(path);
+            if (!ans.isEmpty()) {
+                result.add(ans);
+            }
+            return;
+        }
+
+        for (int i = pos; i < 10; i++) {
+            path.add(i);
+            helper(num, i + 1, path, result);
+            path.remove(path.size() - 1);
+        }
+    }
+
+    private String myGetTime(ArrayList<Integer> path) {
+        int sz = path.size();
+        String ans = "";
+        int hour = 0;
+        int minute = 0;
+
+        for (int i = 0; i < sz; i++) {
+            int idx = path.get(i).intValue();
+            switch (idx) {
+                case 0:
+                    hour += 8;
+                    break;
+                case 1:
+                    hour += 4;
+                    break;
+                case 2:
+                    hour += 2;
+                    break;
+                case 3:
+                    hour += 1;
+                    break;
+                case 4:
+                    minute += 32;
+                    break;
+                case 5:
+                    minute += 16;
+                    break;
+                case 6:
+                    minute += 8;
+                    break;
+                case 7:
+                    minute += 4;
+                    break;
+                case 8:
+                    minute += 2;
+                    break;
+                case 9:
+                    minute += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (minute >= 60 || hour >= 12) {
+            return ans;
+        }
+
+        ans = ans + minute;
+        if (ans.length() == 1) {
+            ans = "0" + ans;
+        }
+        ans = hour + ":" + ans;
+        return ans;
+    }
 }

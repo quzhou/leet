@@ -36,4 +36,26 @@ public class QuickSort {
         helper(A, start, low - 1);
         helper(A, low, end);
     }
+
+    // For fun
+    // Find index that is greater than pivot
+    private int partition(int[] arr, int start, int end, int pivot) {
+        int i = start, j = end;
+        while (i <= j) {
+            while (i <= j && arr[i] <= pivot) {
+                i++;
+            }
+            while (i <= j && arr[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        return i;
+    }
 }

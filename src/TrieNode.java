@@ -24,6 +24,7 @@ public class TrieNode {
         children[pos].insert(word, index + 1);
     }
 
+    // return the last node
     public TrieNode find(String word, int index) {
         if (index == word.length()) {
             return this;

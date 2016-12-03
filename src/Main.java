@@ -2,13 +2,13 @@
  * Created by qzhou on 9/20/16.
  */
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) {
-        Serialize instance = new Serialize();
-        //String str = "37 -34 -48 # -100 -100 48 # # # # -54 # -71 -22 # # # 8 # #";
-        //TreeNode root = instance.deserialize2(str);
-
 //        Random rand = new Random();
 //        int randNum = rand.nextInt(100);
 
@@ -22,15 +22,14 @@ public class Main {
 //            System.out.println(cur.val);
 //        }
 
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
 
-        LevelSerialize ins = new LevelSerialize();
-        String str = ins.serialize(root);
+        LongestIncreaseSubsequence ins = new LongestIncreaseSubsequence();
+        int[] arr = new int[] {10, 9, 2, 5, 3, 7, 101, 18};
+        ins.longestIncreasingSubsequence(arr);
 
-        System.out.println(str);
+        FirstMissingPositive ins2 = new FirstMissingPositive();
+        int[] nums = new int[] {3, 4, -1, 1};
+        int number = ins2.firstMissingPositive(nums);
+        System.out.println(number);
     }
 }
