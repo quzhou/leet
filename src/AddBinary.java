@@ -105,6 +105,7 @@ public class AddBinary {
 
         while (end < A.length - 1) {
             jumps++;
+
             int farthest = end;
             for (int i = start; i <= end; i++) {
                 if (A[i] + i > farthest) {
@@ -113,6 +114,10 @@ public class AddBinary {
             }
             start = end + 1;
             end = farthest;
+
+            if (start > end) {
+                return -1;
+            }
         }
         return jumps;
     }

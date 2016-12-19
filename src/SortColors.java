@@ -37,24 +37,26 @@ public class SortColors {
         return i;
     }
 
-    public void sortColors(int[] a) {
-        if (a == null || a.length <= 1) {
+    // NEED to MEMORIZE!!!
+    //FB http://www.lintcode.com/en/problem/sort-colors/
+    public void sortColors(int[] nums) {
+        if (nums == null || nums.length == 0) {
             return;
         }
 
-        int pl = 0;
-        int pr = a.length - 1;
+        // [0, left) is 0, (right, n-1] is 2
+        int left = 0, right = nums.length - 1;
         int i = 0;
-        while (i <= pr) {
-            if (a[i] == 0) {
-                swap(a, pl, i);
-                pl++;
-                i++;
-            } else if(a[i] == 1) {
+        while (i <= right) {
+            if (nums[i] == 0) {
+                swap(nums, left, i);
+                left++;
+                i++; //new number is either 0 or 1
+            } else if (nums[i] == 1) {
                 i++;
             } else {
-                swap(a, pr, i);
-                pr--;
+                swap(nums, i, right);
+                right--;
             }
         }
     }

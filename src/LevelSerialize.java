@@ -151,4 +151,29 @@ public class LevelSerialize {
         }
         return depth;
     }
+
+    /*
+     * (FB) Given a binary tree, find sum of all the left leaves.
+     */
+    public int leftLeafSum(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int sum = 0;
+        if (root.left != null) {
+            if (root.left.left == null && root.left.right == null) {
+                sum += root.left.val;
+            } else {
+                sum += leftLeafSum(root.left);
+            }
+        }
+        if (root.right != null) {
+            if (root.right.left != null || root.right.right != null) {
+                sum += leftLeafSum(root.right);
+            }
+        }
+
+        return sum;
+    }
 }

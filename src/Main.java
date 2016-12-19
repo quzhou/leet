@@ -22,14 +22,13 @@ public class Main {
 //            System.out.println(cur.val);
 //        }
 
-
         LongestIncreaseSubsequence ins = new LongestIncreaseSubsequence();
         int[] arr = new int[] {10, 9, 2, 5, 3, 7, 101, 18};
         ins.longestIncreasingSubsequence(arr);
 
-        FirstMissingPositive ins2 = new FirstMissingPositive();
-        int[] nums = new int[] {3, 4, -1, 1};
-        int number = ins2.firstMissingPositive(nums);
-        System.out.println(number);
+        LevelSerialize ins2 = new LevelSerialize();
+        String str = "3,9,20,#,#,15,7";
+        TreeNode root = ins2.deserialize(str);
+        System.out.println(ins2.leftLeafSum(root));
     }
 }
