@@ -89,7 +89,7 @@ public class FirstMissingPositive {
     }
 
     //GOOG http://www.lintcode.com/en/problem/wiggle-sort/
-    public void wiggleSort(int[] nums) {
+    public void wiggleSort1(int[] nums) {
         // Write your code here
         for(int i=1; i<nums.length; i++) {
             if((i%2==1 && (nums[i] < nums[i-1]) ||
@@ -103,5 +103,79 @@ public class FirstMissingPositive {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
+    }
+
+    // http://www.lintcode.com/en/problem/wiggle-sort-ii/
+    // 这道题其实就是要找一个中间值，比中间值小的插入到偶数位上，比中间值大的插入到奇数位上。
+    // Use extra array int[] temp
+    public void wiggleSort(int[] nums) {
+        if (nums == null || nums.length == 0 || nums.length == 1) {
+            return;
+        }
+
+        int n = nums.length;
+        int k = (n + 1) / 2;
+        int medium = helper(k, nums, 0, n - 1); // <= medium, at the bottom
+
+        int s = 0, t = n - 1;
+        int[] temp = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] < medium) {
+                temp[s++] = nums[i];
+            } else if (nums[i] > medium) {
+                temp[t--] = nums[i];
+            }
+        }
+
+        while (s < k) {
+            temp[s++] = medium;
+        }
+        while (t >= k) {
+            temp[t--] = medium;
+        }
+
+        // Now three parts: < m, == m, > m
+        t = n;
+        for (int i = 0; i < n; i++) {
+            nums[i] = (i & 1) == 0 ? temp[--s] : temp[--t];
+        }
+    }
+
+    private int partition(int[] nums, int start, int end, int pivot) {
+        int low = start, high = end;
+
+        while (low <= high) {
+            while (low <= high && nums[low] < pivot) {
+                low++;
+            }
+
+            while (low <= high && nums[high] > pivot) {
+                high--;
+            }
+
+            if (low <= high) {
+                swap(nums, low, high);
+                low++;
+                high--;
+            }
+        }
+
+        return low;
+    }
+
+    private int helper(int k, int[] nums, int start, int end) {
+        if (start == end) {
+            return nums[start];
+        }
+
+        int pivot = nums[start + (end - start) / 2];
+        int l = partition(nums, start, end, pivot);
+
+        if (l - start >= k) {
+            return helper(k, nums, start, l-1);
+        } else {
+            return helper(k - l + start, nums, l, end);
+        }
     }
 }

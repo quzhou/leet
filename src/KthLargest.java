@@ -8,6 +8,7 @@
  * You may assume k is always valid, 1 ≤ k ≤ array's length.
  */
 public class KthLargest {
+    /*
     public int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k <= 0) return 0;
         return helper(nums, 0, nums.length - 1, nums.length - k + 1);
@@ -40,5 +41,51 @@ public class KthLargest {
         }
         nums[low] = pivot;
         return low;
+    }
+    */
+
+    public int kthLargestElement(int k, int[] nums) {
+        return helper(k, nums, 0, nums.length - 1);
+    }
+
+    // like quick sort
+    private int partition(int[] nums, int start, int end) {
+        int l = start, r = end;
+        int pivot = nums[start + (end -start) / 2];
+
+        while (l <= r) {
+            // because it is largest, not smallest
+            while (l <= r && nums[l] > pivot) {
+                l++;
+            }
+
+            while (l <= r && nums[r] < pivot) {
+                r--;
+            }
+
+            if (l <= r) {
+                int temp = nums[l];
+                nums[l] = nums[r];
+                nums[r] = temp;
+                l++;
+                r--;
+            }
+        }
+
+        return l;
+    }
+
+    private int helper(int k, int[] nums, int start, int end) {
+        if (start == end) {
+            return nums[start];
+        }
+
+        int l = partition(nums, start, end);
+
+        if (l - start >= k) {
+            return helper(k, nums, start, l-1);
+        } else {
+            return helper(k - l + start, nums, l, end);
+        }
     }
 }

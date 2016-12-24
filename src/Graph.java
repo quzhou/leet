@@ -14,6 +14,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.HashMap;
 
 public class Graph {
@@ -132,5 +133,89 @@ public class Graph {
         }
 
         return 0;
+    }
+
+    // http://www.lintcode.com/en/problem/word-ladder-ii/
+    public List<List<String>> findLadders(String start, String end, Set<String> dict) {
+        List<List<String>> result = new ArrayList<List<String>>();
+        Map<String, Integer> distance = new HashMap<String, Integer>();
+
+        dict.add(start);
+        dict.add(end);
+
+        bfs(start, end, dict, distance);
+
+        List<String> path = new ArrayList<String>();
+        path.add(start);
+        dfs(start, end, dict, distance, path, result);
+        return result;
+    }
+
+    private List<String> getNeighbors(String node, Set<String> dict) {
+        List<String> result = new ArrayList<String>();
+
+        for (int i = 0; i < node.length(); i++) {
+            char ch = node.charAt(i);
+            for (char j = 'a'; j <= 'z'; j++) {
+                if (j == ch) {
+                    continue;
+                }
+
+                String trans = node.substring(0, i) + j + node.substring(i + 1);
+                if (dict.contains(trans)) {
+                    result.add(trans);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    // save info while bfs
+    private void bfs(String start, String end, Set<String> dict,
+                     Map<String, Integer> distance) {
+        Queue<String> q = new LinkedList<String>();
+        q.add(start);
+        distance.put(start, 1);
+
+        while (!q.isEmpty()) {
+            String str = q.remove();
+
+            if (str.equals(end)) {
+                continue;
+            }
+
+            List<String> neighbors = getNeighbors(str, dict);
+            for (String next : neighbors) {
+                if (distance.containsKey(next)) {
+                    continue;
+                }
+
+                int dis = distance.get(str);
+                distance.put(next, dis + 1);
+
+                q.add(next);
+            }
+        }
+    }
+
+    private void dfs(String start, String end, Set<String> dict,
+                     Map<String, Integer> distance,
+                     List<String> path, List<List<String>> result) {
+        int size = path.size();
+        String last = path.get(size - 1);
+        if (last.equals(end)) {
+            result.add(new ArrayList<String>(path));
+            return;
+        }
+
+        List<String> neighbors = getNeighbors(last, dict);
+        for (String str : neighbors) {
+            if (distance.get(str) == distance.get(last) + 1) {
+                path.add(str);
+                dfs(start, end, dict, distance, path, result);
+                path.remove(path.size() - 1);
+            }
+        }
     }
 }

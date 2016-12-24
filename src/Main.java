@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,13 +23,11 @@ public class Main {
 //            System.out.println(cur.val);
 //        }
 
-        LongestIncreaseSubsequence ins = new LongestIncreaseSubsequence();
-        int[] arr = new int[] {10, 9, 2, 5, 3, 7, 101, 18};
-        ins.longestIncreasingSubsequence(arr);
+        SequenceReconstruction ins = new SequenceReconstruction();
+        int[] org = new int[] {1};
+        int[][] seqs = new int[][] {{1}, {2, 3}, {3, 2}};
 
-        LevelSerialize ins2 = new LevelSerialize();
-        String str = "3,9,20,#,#,15,7";
-        TreeNode root = ins2.deserialize(str);
-        System.out.println(ins2.leftLeafSum(root));
+        boolean res = ins.sequenceReconstruction(org, seqs);
+        System.out.println(res);
     }
 }

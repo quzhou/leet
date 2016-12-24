@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  * Created by qzhou on 10/24/16.
@@ -119,5 +120,49 @@ public class Permutation {
         }
         ans = hour + ":" + ans;
         return ans;
+    }
+
+    // http://www.lintcode.com/en/problem/string-permutation-ii/
+    public List<String> stringPermutation2(String str) {
+        List<String> result = new ArrayList<String>();
+        char[] arr = str.toCharArray();
+
+        if (arr.length == 0) {
+            result.add(new String(""));
+            return result;
+        }
+
+        Arrays.sort(arr);
+
+        String path = "";
+        int[] visited = new int[arr.length];
+        helper(arr, visited, path, result);
+
+        return result;
+    }
+
+    private void helper(char[] arr, int[] visited, String path,
+                        List<String> result) {
+        if (path.length() == arr.length) {
+            result.add(new String(path));
+            return;
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (visited[i] == 1) {
+                continue;
+            }
+
+            // error pro!
+            if (i != 0 && arr[i] == arr[i-1] && visited[i-1] == 0) {
+                continue;
+            }
+
+            visited[i] = 1;
+            path = path + arr[i];
+            helper(arr, visited, path, result);
+            visited[i] = 0;
+            path = path.substring(0, path.length() - 1);
+        }
     }
 }
