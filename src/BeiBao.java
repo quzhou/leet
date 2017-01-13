@@ -112,4 +112,73 @@ public class BeiBao {
 
         return dp[n];
     }
+
+    // http://www.lintcode.com/en/problem/backpack/
+    public int backPack(int m, int[] A) {
+        if (A == null || A.length == 0) {
+            return 0;
+        }
+
+        int[] dp = new int[m+1];
+
+        for (int i = 0; i < A.length; i++) {
+            for (int j = m; j >= A[i]; j--) {
+                if (dp[j - A[i]] + A[i] > dp[j]) {
+                    dp[j] = dp[j - A[i]] + A[i];
+                }
+            }
+        }
+
+        return dp[m];
+    }
+
+    // http://www.lintcode.com/en/problem/copy-books/
+    public int copyBooks(int[] pages, int k) {
+        int[][] dp = new int[pages.length + 1][k + 1];
+        dp[0][0] = 0;
+        for (int i = 1; i <= pages.length; i++) {
+            dp[i][0] = Integer.MAX_VALUE;
+        }
+
+        int[] sums = new int[pages.length+1];
+        sums[0] = 0;
+        int sum = 0;
+        for (int i = 0; i < pages.length; i++) {
+            sum += pages[i];
+            sums[i+1] = sum;
+        }
+
+        for (int i = 1; i <= pages.length; i++) {
+            for (int j = 1; j <= k; j++) {
+                // size i, j persons
+                dp[i][j] = Integer.MAX_VALUE;
+
+                for (int l = 0; l < i; l++) {
+                    dp[i][j] = Math.min(dp[i][j],
+                            Math.max(dp[l][j-1], sums[i] - sums[l]));
+                }
+            }
+        }
+
+        return dp[pages.length][k];
+    }
+
+    // http://www.lintcode.com/en/problem/unique-binary-search-trees/
+    public int numTrees(int n) {
+        if (n <= 0) {
+            return 1;
+        }
+
+        int[] dp = new int[n+1];
+        dp[0] = 1;
+
+        for (int i = 1; i <= n; i++) {
+            dp[i] = 0;
+            for (int j = 1; j <= i; j++) {
+                dp[i] += dp[j-1] * dp[i-j];
+            }
+        }
+
+        return dp[n];
+    }
 }

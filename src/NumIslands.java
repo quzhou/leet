@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NumIslands {
-    private class UnionFind {
-        private HashMap<Long, Long> id;
-        private HashMap<Long, Long> sz;
+    public class UnionFind {
+        public HashMap<Integer, Integer> id; //value is parent
+        public HashMap<Integer, Integer> sz; //key is root
 
         public UnionFind() {
-            this.id = new HashMap<Long, Long>();
-            this.sz = new HashMap<Long, Long>();
+            this.id = new HashMap<Integer, Integer>();
+            this.sz = new HashMap<Integer, Integer>();
         }
 
-        private Long root(Long i) {
+        private int root(int i) {
             while (i != id.get(i)) {
                 id.put(i, id.get(id.get(i)));
                 i = id.get(i);
@@ -29,16 +29,16 @@ public class NumIslands {
             return i;
         }
 
-        public boolean find(Long i, Long j) {
-            return (root(i) == root(j));
+        public boolean find(int i, int j) {
+            return root(i) == root(j);
         }
 
-        public void unite(Long i, Long j) {
-            Long rootI = root(i);
-            Long rootJ = root(j);
+        public void unite(int i, int j) {
+            int rootI = root(i);
+            int rootJ = root(j);
             if (rootI != rootJ) {
-                Long szI = sz.get(rootI);
-                Long szJ = sz.get(rootJ);
+                int szI = sz.get(rootI);
+                int szJ = sz.get(rootJ);
 
                 if (szI < szJ) {
                     id.put(rootI, rootJ);
@@ -52,12 +52,12 @@ public class NumIslands {
             }
         }
 
-        public void add(Long i) {
+        public void add(int i) {
             id.put(i, i);
-            sz.put(i, (long)1);
+            sz.put(i, 1);
         }
 
-        public boolean exist(Long i) {
+        public boolean exist(int i) {
             return (id.containsKey(i));
         }
 
@@ -67,7 +67,7 @@ public class NumIslands {
     }
 
     private void addIsland(int m, int n, int i, int j, UnionFind uf) {
-        long s, k = n * i + j;
+        int s, k = n * i + j;
         uf.add(k);
 
         if (i - 1 >= 0) {
@@ -109,5 +109,35 @@ public class NumIslands {
         }
 
         return result;
+    }
+
+    public int numIslands(char[][] grid) {
+        int m = grid.length;
+        if (m == 0) {
+            return 0;
+        }
+        int n = grid[0].length;
+        if (n == 0) {
+            return 0;
+        }
+
+        UnionFind uf = new UnionFind();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    int k = i * n + j;
+                    uf.add(k);
+
+                    if (i - 1 >= 0 && grid[i-1][j] == '1') {
+                        uf.unite(k, k - n);
+                    }
+                    if (j - 1 >= 0 && grid[i][j-1] == '1') {
+                        uf.unite(k, k - 1);
+                    }
+                }
+            }
+        }
+
+        return uf.sz.size();
     }
 }

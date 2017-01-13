@@ -90,4 +90,26 @@ public class LongestIncreaseSubsequence {
             return end + 1;
         }
     }
+
+    // http://www.lintcode.com/en/problem/longest-common-subsequence/
+    // 二维不用ending sub-array
+    // choose it or not choose it
+    public int longestCommonSubsequence(String A, String B) {
+        int m = A.length(), n = B.length();
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (A.charAt(i-1) == B.charAt(j-1)) {
+                    dp[i][j] = Math.max(dp[i-1][j-1] + 1,
+                            Math.max(dp[i-1][j], dp[i][j-1]));
+                } else {
+                    dp[i][j] = Math.max(dp[i-1][j-1],
+                            Math.max(dp[i-1][j], dp[i][j-1]));
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
 }

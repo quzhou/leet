@@ -176,4 +176,52 @@ public class LevelSerialize {
 
         return sum;
     }
+
+    // https://leetcode.com/problems/invert-binary-tree/
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        TreeNode right = root.right;
+        root.right = invertTree(root.left);
+        root.left = invertTree(right);
+
+        return root;
+    }
+
+    // http://www.lintcode.com/en/problem/remove-node-in-binary-search-tree/
+    public TreeNode removeNode(TreeNode root, int value) {
+        if (root == null) {
+            return root;
+        }
+
+        if (root.val == value) {
+            if (root.left == null && root.right == null) {
+                root = null;
+                return root;
+            } else if (root.right != null) {
+                TreeNode cur = root.right;
+                while (cur.left != null) {
+                    cur = cur.left;
+                }
+                // change root value to next largest
+                root.val = cur.val;
+                root.right = removeNode(root.right, cur.val);
+                return root;
+            } else {
+                TreeNode cur = root.left;
+                while (cur.right != null) {
+                    cur = cur.right;
+                }
+                root.val = cur.val;
+                root.left = removeNode(root.left, cur.val);
+                return root;
+            }
+        } else {
+            root.left = removeNode(root.left, value);
+            root.right = removeNode(root.right, value);
+            return root;
+        }
+    }
 }

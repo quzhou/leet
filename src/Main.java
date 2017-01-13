@@ -23,11 +23,16 @@ public class Main {
 //            System.out.println(cur.val);
 //        }
 
-        SequenceReconstruction ins = new SequenceReconstruction();
-        int[] org = new int[] {1};
-        int[][] seqs = new int[][] {{1}, {2, 3}, {3, 2}};
+//        AlienDictionary ins = new AlienDictionary();
+//        String[] words = new String[] {
+//            "wrt",
+//            "wrf",
+//            "ef",
+//            "at"
+//        };
 
-        boolean res = ins.sequenceReconstruction(org, seqs);
-        System.out.println(res);
+        Regex ins = new Regex();
+        boolean match = ins.isMatch("", "c*c*");
+        System.out.println(match);
     }
 }

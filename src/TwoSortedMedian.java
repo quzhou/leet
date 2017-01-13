@@ -69,6 +69,7 @@ public class TwoSortedMedian {
         }
     }
 
+    // k is 0-based
     double helper(int[] nums1, int[] nums2, int k, int l1, int r1, int l2, int r2) {
         int len1 = r1 - l1 + 1;
         int len2 = r2 - l2 + 1;
