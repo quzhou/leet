@@ -3,6 +3,7 @@
  * https://leetcode.com/problems/regular-expression-matching/
  */
 public class Regex {
+    // DP, O(n^2)
     public boolean isMatch(String s, String p) {
         int m = s.length();
         int n = p.length();

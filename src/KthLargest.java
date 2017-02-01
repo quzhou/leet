@@ -1,5 +1,11 @@
 /**
  * Created by qzhou on 10/3/16.
+ * First problem quick select.
+ * Second problem Heap.
+ */
+import java.util.PriorityQueue;
+
+/**
  * https://leetcode.com/problems/kth-largest-element-in-an-array/
  *
  * Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order,
@@ -87,5 +93,28 @@ public class KthLargest {
         } else {
             return helper(k - l + start, nums, l, end);
         }
+    }
+
+    // http://www.lintcode.com/en/problem/kth-largest-in-n-arrays/
+    // Kth Largest in N Arrays
+    public int KthInArrays(int[][] arrays, int k) {
+        PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
+        int sz = 0;
+
+        for (int i = 0; i < arrays.length; i++) {
+            for (int j = 0; j < arrays[i].length; j++) {
+                if (sz < k) {
+                    heap.add(arrays[i][j]);
+                    sz++;
+                } else {
+                    if (heap.peek() < arrays[i][j]) {
+                        heap.remove();
+                        heap.add(arrays[i][j]);
+                    }
+                }
+            }
+        }
+
+        return (int)heap.remove();
     }
 }

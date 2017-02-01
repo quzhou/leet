@@ -31,8 +31,18 @@ public class Main {
 //            "at"
 //        };
 
-        Regex ins = new Regex();
-        boolean match = ins.isMatch("", "c*c*");
-        System.out.println(match);
+        MajorityElement2 ins = new MajorityElement2();
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        nums.add(3);
+        nums.add(1);
+        nums.add(2);
+        nums.add(3);
+        nums.add(2);
+        nums.add(3);
+        nums.add(3);
+        nums.add(4);
+        nums.add(4);
+        nums.add(4);
+        System.out.println(ins.majorityNumber(nums, 3));
     }
 }

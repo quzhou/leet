@@ -165,4 +165,46 @@ public class Permutation {
             path = path.substring(0, path.length() - 1);
         }
     }
+
+    // http://www.lintcode.com/en/problem/next-permutation/
+    public int[] nextPermutation(int[] num) {
+        int n = num.length;
+        boolean found = false;
+
+        for (int len = 2; len <= n; len++) {
+            int start = n - len;
+            for (int j = n-1; j > start; j--) {
+                if (num[start] < num[j]) {
+                    swap(num, start, j);
+                    reverse(num, start+1, n-1);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                break;
+            }
+        }
+
+        if (!found) {
+            reverse(num, 0, n-1);
+        }
+        return num;
+    }
+
+    private void swap(int[] num, int i, int j) {
+        int temp = num[i];
+        num[i] = num[j];
+        num[j] = temp;
+    }
+
+    private void reverse(int[] num, int start, int end) {
+        int i = start, j = end;
+        while (i < j) {
+            swap(num, i, j);
+            i++;
+            j--;
+        }
+    }
 }

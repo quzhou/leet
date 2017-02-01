@@ -113,6 +113,38 @@ public class BeiBao {
         return dp[n];
     }
 
+    // http://www.lintcode.com/en/problem/backpack-v/
+    // 每个元素只能取一次
+    public int backPackV(int[] nums, int target) {
+        // int[][] dp = new int[nums.length+1][target+1];
+        // for (int i = 0; i <= nums.length; i++) {
+        //     dp[i][0] = 1;
+        // }
+
+        // for (int i = 1; i <= nums.length; i++) {
+        //     for (int j = 1; j <= target; j++) {
+        //         if (j >= nums[i-1]) {
+        //             dp[i][j] = dp[i-1][j - nums[i-1]] + dp[i-1][j];
+        //         } else {
+        //             dp[i][j] = dp[i-1][j];
+        //         }
+        //     }
+        // }
+
+        // return dp[nums.length][target];
+
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+
+        for (int i = 1; i <= nums.length; i++) {
+            for (int j = target; j >= nums[i-1]; j--) {
+                dp[j] += dp[j - nums[i-1]];
+            }
+        }
+
+        return dp[target];
+    }
+
     // http://www.lintcode.com/en/problem/backpack/
     public int backPack(int m, int[] A) {
         if (A == null || A.length == 0) {
