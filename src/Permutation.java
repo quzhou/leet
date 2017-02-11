@@ -167,7 +167,7 @@ public class Permutation {
     }
 
     // http://www.lintcode.com/en/problem/next-permutation/
-    public int[] nextPermutation(int[] num) {
+    public int[] nextPermutation2(int[] num) {
         int n = num.length;
         boolean found = false;
 
@@ -206,5 +206,78 @@ public class Permutation {
             i++;
             j--;
         }
+    }
+
+    public void nextPermutation(int[] num) {
+        // find the last increase index
+        int index = -1;
+        for (int i = num.length - 2; i >= 0; i--) {
+            if (num[i] < num[i + 1]) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            reverse(num, 0, num.length - 1);
+            return;
+        }
+
+        // find the first bigger one
+        int biggerIndex = index + 1;
+        for (int i = num.length - 1; i > index; i--) {
+            if (num[i] > num[index]) {
+                biggerIndex = i;
+                break;
+            }
+        }
+        while (biggerIndex - 1> index && num[biggerIndex] == num[biggerIndex -1]) {
+            biggerIndex--;
+        }
+
+        // swap them to make the permutation bigger
+        int temp = num[index];
+        num[index] = num[biggerIndex];
+        num[biggerIndex] = temp;
+
+        // reverse the last part
+        reverse(num, index + 1, num.length - 1);
+    }
+
+    // http://www.lintcode.com/en/problem/permutation-sequence/
+    public String getPermutation(int n, int k) {
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = i + 1;
+        }
+
+        int curK = k - 1;
+        while (curK > 0) {
+            int fac = 1;
+            int prod = 1, pre = 1;
+            while (curK >= prod) {
+                fac++;
+                pre = prod;
+                prod *= fac;
+            }
+
+            int left = n - fac;
+            int right = curK / pre + left;
+            swap(nums, left, right);
+
+            // sort remaining
+            // 1 2 3 4 5 -> 1 5 3 4 2, 3 4 2
+            // 1 3 5 7 9 -> 1 7 5 3 9, 5 3 9
+            for (int j = right; j > left + 1; j--) {
+                swap(nums, j, j-1);
+            }
+
+            curK = curK % pre;
+        }
+
+        String ans = "";
+        for (int i = 0; i < n; i++) {
+            ans += nums[i];
+        }
+        return ans;
     }
 }

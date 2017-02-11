@@ -18,10 +18,10 @@ public class QuickSort {
         int pivot = A[start + (end - start) / 2];
         int low = start, high = end;
         while (low <= high) {
-            while (low <= end && A[low] < pivot) { //this can NOT be <= !!!
+            while (low <= high && A[low] < pivot) { //this can NOT be <= !!!
                 low++;
             }
-            while (high >= start && A[high] > pivot) {
+            while (low <= high && A[high] > pivot) {
                 high--;
             }
             if (low <= high) {
@@ -33,13 +33,14 @@ public class QuickSort {
             }
         }
 
-        helper(A, start, low - 1);
+        helper(A, start, high);
         helper(A, low, end);
     }
 
     // For fun
     // Find index that is greater than pivot
-    private int partition(int[] arr, int start, int end, int pivot) {
+    // can't be used for quick sort
+    public int partition(int[] arr, int start, int end, int pivot) {
         int i = start, j = end;
         while (i <= j) {
             while (i <= j && arr[i] <= pivot) {
@@ -57,5 +58,17 @@ public class QuickSort {
             }
         }
         return i;
+    }
+
+    // insertion sort
+    public void insertion(int[] arr) {
+        int i, j, key;
+        for (i = 1; i < arr.length; i++) {
+            key = arr[i];
+            for (j = i-1; j >= 0 && arr[j] > key; j--) {
+                arr[j+1] = arr[j];
+            }
+            arr[j+1] = key;
+        }
     }
 }

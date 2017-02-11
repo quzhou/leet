@@ -20,7 +20,7 @@ public class KthLargest {
         return helper(nums, 0, nums.length - 1, nums.length - k + 1);
     }
 
-    int helper(int[] nums, int l, int r, int k) {
+    public int helper(int[] nums, int l, int r, int k) {
         if (l == r) return nums[l];
         int p = partition(nums, l, r);
         if (p + 1 == k) {
@@ -31,8 +31,8 @@ public class KthLargest {
             return helper(nums, l, p-1, k);
         }
     }
-
-    int partition(int[] nums, int l, int r) {
+    */
+    public int partition2(int[] nums, int l, int r) {
         int low = l, high = r;
         int pivot = nums[l];
         while (low < high) {
@@ -48,7 +48,6 @@ public class KthLargest {
         nums[low] = pivot;
         return low;
     }
-    */
 
     public int kthLargestElement(int k, int[] nums) {
         return helper(k, nums, 0, nums.length - 1);

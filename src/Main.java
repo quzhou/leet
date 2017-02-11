@@ -22,27 +22,32 @@ public class Main {
 //            TreeNode cur = ins.next();
 //            System.out.println(cur.val);
 //        }
+/*
+        DirectedGraphNode n1 = new DirectedGraphNode(1);
+        DirectedGraphNode n2 = new DirectedGraphNode(2);
+        DirectedGraphNode n4 = new DirectedGraphNode(4);
+        n1.neighbors.add(n2);
+        n1.neighbors.add(n4);
 
-//        AlienDictionary ins = new AlienDictionary();
-//        String[] words = new String[] {
-//            "wrt",
-//            "wrf",
-//            "ef",
-//            "at"
-//        };
+        n2.neighbors.add(n4);
 
-        MajorityElement2 ins = new MajorityElement2();
-        ArrayList<Integer> nums = new ArrayList<Integer>();
-        nums.add(3);
-        nums.add(1);
-        nums.add(2);
-        nums.add(3);
-        nums.add(2);
-        nums.add(3);
-        nums.add(3);
-        nums.add(4);
-        nums.add(4);
-        nums.add(4);
-        System.out.println(ins.majorityNumber(nums, 3));
+        DirectedGraphNode n3 = new DirectedGraphNode(3);
+        DirectedGraphNode n5 = new DirectedGraphNode(5);
+        n3.neighbors.add(n5);
+
+        DirectedGraphNode n6 = new DirectedGraphNode(6);
+        n6.neighbors.add(n5);
+
+        ArrayList<DirectedGraphNode> list = new ArrayList<DirectedGraphNode>();
+        list.add(n1);
+        list.add(n2);
+        list.add(n3);
+        list.add(n4);
+        list.add(n5);
+        list.add(n6);
+*/
+        QuickSort ins = new QuickSort();
+        int[] arr = {2, 9, 3, -2, 3, 1, 4};
+        ins.insertion(arr);
     }
 }

@@ -57,6 +57,61 @@ public class Graph {
         return ans;
     }
 
+    // Using Union-Find
+    private int root(HashMap<Integer, Integer> id, int i) {
+        while (i != id.get(i)) {
+            id.put(i, id.get(id.get(i)));
+            i = id.get(i);
+        }
+        return i;
+    }
+
+    public List<List<Integer>> connectedSet2(ArrayList<UndirectedGraphNode> nodes) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        HashMap<Integer, Integer> id = new HashMap<Integer, Integer>();
+        HashSet<Integer> roots = new HashSet<Integer>();
+
+        for (UndirectedGraphNode node : nodes) {
+            if (!id.containsKey(node.label)) {
+                id.put(node.label, node.label);
+                roots.add(node.label);
+            }
+
+            for (UndirectedGraphNode n : node.neighbors) {
+                if (!id.containsKey(n.label)) {
+                    id.put(n.label, n.label);
+                    roots.add(n.label);
+                }
+
+                int ra = root(id, node.label);
+                int rb = root(id, n.label);
+
+                if (ra != rb) {
+                    id.put(ra, rb);
+                    roots.remove(ra);
+                }
+            }
+        }
+
+        HashMap<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+        for (Integer r : roots) {
+            List<Integer> list = new ArrayList<Integer>();
+            map.put(r, list);
+        }
+        for (Integer i : id.keySet()) {
+            int root = root(id, i);
+            List<Integer> list = map.get(root);
+            list.add(i);
+        }
+
+        for (List<Integer> list : map.values()) {
+            Collections.sort(list);
+            result.add(list);
+        }
+
+        return result;
+    }
+
     // http://www.lintcode.com/en/problem/six-degrees/
     public int sixDegrees(List<UndirectedGraphNode> graph,
                           UndirectedGraphNode s,
@@ -217,5 +272,47 @@ public class Graph {
                 path.remove(path.size() - 1);
             }
         }
+    }
+
+    // http://www.lintcode.com/en/problem/find-the-weak-connected-component-in-the-directed-graph/
+    // This method is wrong!!!
+    public List<List<Integer>> connectedSet3(ArrayList<DirectedGraphNode> nodes) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        HashSet<DirectedGraphNode> set = new HashSet<DirectedGraphNode>();
+
+        for (DirectedGraphNode node : nodes) {
+            if (set.contains(node)) {
+                continue;
+            }
+
+            List<Integer> comp = getConnected2(node, set);
+            Collections.sort(comp);
+            result.add(comp);
+        }
+
+        return result;
+    }
+
+    private List<Integer> getConnected2(DirectedGraphNode node,
+                                       HashSet<DirectedGraphNode> set) {
+        List<Integer> result = new ArrayList<Integer>();
+
+        Queue<DirectedGraphNode> q = new LinkedList<DirectedGraphNode>();
+        q.add(node);
+        set.add(node);
+
+        while (!q.isEmpty()) {
+            DirectedGraphNode cur = q.remove();
+            result.add(cur.label);
+
+            for (DirectedGraphNode n : cur.neighbors) {
+                if (!set.contains(n)) {
+                    q.add(n);
+                    set.add(n);
+                }
+            }
+        }
+
+        return result;
     }
 }
