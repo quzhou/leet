@@ -18,7 +18,7 @@ public class LongestSubstring {
         }
         int startIdx = 0;
         for (int i = 0; i < s.length(); i++) {
-            if (lastIdx[s.charAt(i)] > 0 && startIdx <= lastIdx[s.charAt(i)]) {
+            if (lastIdx[s.charAt(i)] >= 0 && startIdx <= lastIdx[s.charAt(i)]) {
                 startIdx = lastIdx[s.charAt(i)] + 1;
             }
             lastIdx[s.charAt(i)] = i;

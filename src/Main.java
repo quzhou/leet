@@ -46,8 +46,15 @@ public class Main {
         list.add(n5);
         list.add(n6);
 */
-        QuickSort ins = new QuickSort();
-        int[] arr = {2, 9, 3, -2, 3, 1, 4};
-        ins.insertion(arr);
+//        MinSizeSubarray ins = new MinSizeSubarray();
+//        int[] arr = {1, 12, -5, -6, 50, 3};
+//        double res = ins.maxAverage(arr, 3);
+
+        ReversePairs ins = new ReversePairs();
+        int[] arr = new int[6];
+        for (int i = 0; i < 6; i++) {
+            arr[i] = Integer.MAX_VALUE;
+        }
+        System.out.println(ins.reversePairs(arr));
     }
 }
