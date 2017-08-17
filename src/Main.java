@@ -50,11 +50,8 @@ public class Main {
 //        int[] arr = {1, 12, -5, -6, 50, 3};
 //        double res = ins.maxAverage(arr, 3);
 
-        ReversePairs ins = new ReversePairs();
-        int[] arr = new int[6];
-        for (int i = 0; i < 6; i++) {
-            arr[i] = Integer.MAX_VALUE;
-        }
-        System.out.println(ins.reversePairs(arr));
+        LongestSubstringKDistinct ins = new LongestSubstringKDistinct();
+        int val = ins.lengthOfLongestSubstringKDistinct("abaccc", 2);
+        System.out.println(val);
     }
 }
