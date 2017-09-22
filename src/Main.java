@@ -50,8 +50,14 @@ public class Main {
 //        int[] arr = {1, 12, -5, -6, 50, 3};
 //        double res = ins.maxAverage(arr, 3);
 
-        LongestSubstringKDistinct ins = new LongestSubstringKDistinct();
-        int val = ins.lengthOfLongestSubstringKDistinct("abaccc", 2);
-        System.out.println(val);
+        MinStack ins = new MinStack();
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.push(23);
+        stack.push(3);
+        stack.push(31);
+        stack.push(98);
+        stack.push(92);
+        stack.push(34);
+        ins.stackSorting(stack);
     }
 }

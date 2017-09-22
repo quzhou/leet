@@ -14,6 +14,50 @@ import java.util.PriorityQueue;
  * You may assume k is always valid, 1 ≤ k ≤ array's length.
  */
 public class KthLargest {
+    public int findKthLargest(int[] nums, int k) {
+        return helper(nums, 0, nums.length - 1, k);
+    }
+
+    // 找所在区间段
+    private int helper(int[] nums, int l, int u, int k) {
+        if (l == u) {
+            return nums[l];
+        }
+
+        int idx = partition(nums, l, u);
+
+        // k is 1-based, treat k like len
+        if (idx - l >= k) {
+            return helper(nums, l, idx-1, k);
+        } else {
+            return helper(nums, idx, u, k - (idx - l));
+        }
+    }
+
+    // return index that is first <= pivot
+    private int partition(int[] nums, int l, int u) {
+        int pivot = nums[l + (u - l) / 2];
+        int i = l, j = u;
+        while (i <= j) {
+            while (i <= u && nums[i] > pivot) {
+                i++;
+            }
+
+            while (j >= l && nums[j] < pivot) {
+                j--;
+            }
+
+            if (i <= j) {
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
+                i++;
+                j--;
+            }
+        }
+
+        return i;
+    }
     /*
     public int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k <= 0) return 0;
@@ -32,6 +76,7 @@ public class KthLargest {
         }
     }
     */
+    /*
     public int partition2(int[] nums, int l, int r) {
         int low = l, high = r;
         int pivot = nums[l];
@@ -93,7 +138,7 @@ public class KthLargest {
             return helper(k - l + start, nums, l, end);
         }
     }
-
+    */
     // http://www.lintcode.com/en/problem/kth-largest-in-n-arrays/
     // Kth Largest in N Arrays
     public int KthInArrays(int[][] arrays, int k) {

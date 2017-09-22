@@ -43,6 +43,7 @@ public class MinStack {
     }
 
     // http://www.lintcode.com/en/problem/stack-sorting/
+    // Given a stack of integers, sort it in ascending order using another temporary stack.
     // Pay attention to special case like duplicate numbers in stack!
     public void stackSorting(Stack<Integer> stack) {
         if (stack.isEmpty()) {

@@ -145,4 +145,23 @@ public class UglyNumber2 {
 
         return uglys.get(n-1);
     }
+
+    // https://leetcode.com/problems/power-of-two/description/
+    public boolean isPowerOfTwo(int n) {
+        if (n <= 0) {
+            return false;
+        }
+
+        int len = 0, num = n;
+        while (num > 0) {
+            len++;
+            num >>= 1;
+        }
+
+        if (n == (1 << (len-1))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
