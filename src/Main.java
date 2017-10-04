@@ -46,18 +46,9 @@ public class Main {
         list.add(n5);
         list.add(n6);
 */
-//        MinSizeSubarray ins = new MinSizeSubarray();
-//        int[] arr = {1, 12, -5, -6, 50, 3};
-//        double res = ins.maxAverage(arr, 3);
-
-        MinStack ins = new MinStack();
-        Stack<Integer> stack = new Stack<Integer>();
-        stack.push(23);
-        stack.push(3);
-        stack.push(31);
-        stack.push(98);
-        stack.push(92);
-        stack.push(34);
-        ins.stackSorting(stack);
+        TextJustify ins = new TextJustify();
+        String[] strs = new String[] {"a", "b", "c", "d", "e"};
+        ins.fullJustify(strs, 3);
+        System.out.println("done");
     }
 }
