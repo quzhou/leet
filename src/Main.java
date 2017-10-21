@@ -46,9 +46,9 @@ public class Main {
         list.add(n5);
         list.add(n6);
 */
-        TextJustify ins = new TextJustify();
-        String[] strs = new String[] {"a", "b", "c", "d", "e"};
-        ins.fullJustify(strs, 3);
-        System.out.println("done");
+
+        ExcelTitle ins = new ExcelTitle();
+        String res = ins.convertToTitle(52);
+        System.out.println(res);
     }
 }

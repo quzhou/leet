@@ -17,47 +17,48 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Serialize {
+    private static final String sep = ",";
+    private static final String NN = "#";
+
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        String ret = "";
-        if (root != null) {
-            ret += root.val;
-            if (!ret.isEmpty())
-                ret += " ";
-            ret += serialize(root.left);
-            if (!ret.isEmpty())
-                ret += " ";
-            ret += serialize(root.right);
+        StringBuilder sb = new StringBuilder();
+        serHelper(root, sb);
+        return sb.toString();
+    }
+
+    private void serHelper(TreeNode root, StringBuilder sb) {
+        if (root == null) {
+            sb.append(NN).append(sep);
         } else {
-            ret += "#";
+            sb.append(root.val).append(sep);
+            serHelper(root.left, sb);
+            serHelper(root.right, sb);
         }
-        return ret;
     }
 
+    // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if (data == null || data.isEmpty()) {
-            return null;
-        }
-        String[] vals = data.split(" ");
-        int[] start = new int[1];
-        return deserializeHelper(vals, start);
+        String[] arr = data.split(sep);
+        int[] start = new int[1]; //to change value
+        return buildTree(arr, start);
     }
 
-    TreeNode deserializeHelper(String[] vals, int[] start) {
-        if (start[0] >= vals.length) {
+    private TreeNode buildTree(String[] arr, int[] start) {
+        int idx = start[0];
+        if (idx >= arr.length || arr[idx].equals(NN)) {
+            start[0]++;
             return null;
         }
-        if (vals[start[0]].equals("#")) {
-            start[0] += 1;
-            return null;
-        }
-        TreeNode root = new TreeNode(Integer.parseInt(vals[start[0]]));
-        start[0] += 1;
-        root.left = deserializeHelper(vals, start);
-        root.right = deserializeHelper(vals, start);
+
+        TreeNode root = new TreeNode(Integer.parseInt(arr[idx]));
+        start[0]++;
+        root.left = buildTree(arr, start);
+        root.right = buildTree(arr, start);
         return root;
     }
 
+    // This is using level traversal
     public String serialize2(TreeNode root) {
         String ret = "";
         List<TreeNode> pre = new ArrayList<TreeNode>();
