@@ -4,13 +4,13 @@ import java.util.*;
  * Created by quzhou on 10/21/17.
  */
 public class DictMatch {
-    public static class TrieNode {
+    public class TrieNode {
         public HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
         public boolean hasWord;
         public String s;
     }
 
-    public static class Trie {
+    public class Trie {
         public TrieNode root;
         public Trie() {
             this.root = new TrieNode();
@@ -37,7 +37,7 @@ public class DictMatch {
     }
 
     // "*o*d"
-    public static List<String> findMatch(Trie tree, String str) {
+    public List<String> findMatch(Trie tree, String str) {
         List<String> res = new ArrayList<String>();
         Queue<TrieNode> q = new LinkedList<TrieNode>();
 

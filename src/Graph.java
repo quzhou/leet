@@ -276,6 +276,7 @@ public class Graph {
 
     // http://www.lintcode.com/en/problem/find-the-weak-connected-component-in-the-directed-graph/
     // This method is wrong!!!
+    // It should use union find instead!!!
     public List<List<Integer>> connectedSet3(ArrayList<DirectedGraphNode> nodes) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         HashSet<DirectedGraphNode> set = new HashSet<DirectedGraphNode>();
