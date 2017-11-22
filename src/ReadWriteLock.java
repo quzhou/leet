@@ -56,7 +56,7 @@ public class ReadWriteLock {
         }
 
         // writer can write again, otherwise not allowed
-        if (wrtingThread != thread) {
+        if (writingThread != thread) {
             return false;
         }
 
