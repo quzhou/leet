@@ -45,10 +45,16 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-        // 1 0 0 1 1 1 0 0 1 0 1
-        Netflix ins = new Netflix();
-
-        int[] arr = {1,0,0,1,1,1,0,0,1,0,1};
-        ins.countOnes(arr);
+        /*
+        ["RangeModule","addRange","removeRange","queryRange","queryRange","queryRange"]
+        [[],[10,20],[14,16],[10,14],[13,15],[16,17]]
+         */
+        LevelTraversal ins = new LevelTraversal();
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.left.right = new TreeNode(5);
+        root.right = new TreeNode(3);
+        List<Integer> res = ins.levelSum(root);
+        System.out.println(res);
     }
 }
